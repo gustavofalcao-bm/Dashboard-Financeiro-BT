@@ -577,7 +577,7 @@ with st.sidebar:
     if logo_base64:
         st.markdown(f"""
             <div style='text-align: center; padding: 1.5rem 0 2rem 0;'>
-                <img src='data:image/gif;base64,{logo_base64}' style='max-width: 310px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));'>
+                <img src='data:image/gif;base64,{logo_base64}' style='max-width: 280px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));'>
             </div>
         """, unsafe_allow_html=True)
     else:
