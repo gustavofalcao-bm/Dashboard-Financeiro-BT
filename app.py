@@ -54,7 +54,7 @@ CORES_SERVICOS = {
 def load_logo():
     """Carrega a logo da Base Telco"""
     try:
-        with open("logo.png", "rb") as f:
+        with open("logo.gif", "rb") as f:
             return base64.b64encode(f.read()).decode()
     except:
         return None
