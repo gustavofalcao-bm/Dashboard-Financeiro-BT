@@ -577,7 +577,7 @@ with st.sidebar:
     if logo_base64:
         st.markdown(f"""
             <div style='text-align: center; padding: 1.5rem 0 2rem 0;'>
-                <img src='data:image/gif;base64,{logo_base64}' style='max-width: 280px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));'>
+                <img src='data:image/gif;base64,{logo_base64}' style='max-width: 310px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));'>
             </div>
         """, unsafe_allow_html=True)
     else:
@@ -917,8 +917,21 @@ if st.session_state.pagina_atual == 'previsao':
                 html_table += f"<tr><td>{cliente}</td>"
                 for periodo in periodos_ordenados:
                     valor = df_pivot.loc[cliente, periodo]
+                    
+                    # Calcular ícone de variação
+                    icone = ''
+                    idx_periodo = list(periodos_ordenados).index(periodo)
+                    if idx_periodo > 0:
+                        periodo_anterior = periodos_ordenados[idx_periodo - 1]
+                        valor_anterior = df_pivot.loc[cliente, periodo_anterior]
+                        diferenca = valor - valor_anterior
+                        if diferenca > 100:
+                            icone = ' <span style="color:#10b981;font-size:18px;font-weight:bold;">↑</span>'
+                        elif diferenca < -100:
+                            icone = ' <span style="color:#ef4444;font-size:18px;font-weight:bold;">↓</span>'
+
                     tipo_classe = 'valor-realizado' if periodo in periodos_reais else 'valor-previsto'
-                    html_table += f"<td class='{tipo_classe}'>{format_currency(valor)}</td>"
+                    html_table += f"<td class='{tipo_classe}'>{format_currency(valor)}{icone}</td>"
                 html_table += "</tr>"
 
             # Linha de totais
